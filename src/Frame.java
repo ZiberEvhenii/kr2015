@@ -22,9 +22,9 @@ public class Frame extends JFrame implements ActionListener, Music {
 
     private boolean isPlaying = false;
     private boolean isPause = false;
-
+    private JPanel panelButtons;
     private String audioFilePath;
-
+    private JPanel defoltPanel = new JPanel();
     private JLabel labelFileName = new JLabel("Playing File:");
     private JLabel labelTimeCounter = new JLabel("00:00:00");
     private JLabel labelDuration = new JLabel("00:00:00");
@@ -34,7 +34,8 @@ public class Frame extends JFrame implements ActionListener, Music {
     private JButton buttonPlay = new JButton();
     private JButton buttonPause = new JButton();
     private JButton open = new JButton("Open");
-
+    private JButton left = new JButton();
+    private JButton right = new JButton();
     private JSlider sliderTime = new JSlider();
     private ImagePanel panel;
     private JComboBox songs;
@@ -68,8 +69,8 @@ public class Frame extends JFrame implements ActionListener, Music {
 
         defpanel22.setPreferredSize(new Dimension(30, 30));
         defpanel222.setPreferredSize(new Dimension(30, 30));
-        impanel.add(defpanel22,BorderLayout.EAST);
-        impanel.add(defpanel222,BorderLayout.WEST);
+        impanel.add(defpanel22, BorderLayout.EAST);
+        impanel.add(defpanel222, BorderLayout.WEST);
         //impanel.add(contentPane);
         //contentPane.setBackground(Color.cyan);
         impanel.add(contentPane, BorderLayout.CENTER);
@@ -78,10 +79,14 @@ public class Frame extends JFrame implements ActionListener, Music {
         setLocationRelativeTo(null);
         setResizable(false);
         //contentPane.setLayout(null);
-        buttonOpen.setIcon(new ImageIcon("images/Play.gif"));
-        buttonPause.setIcon(new ImageIcon("images/Pause.png"));
+        buttonOpen.setIcon(new ImageIcon("1.png"));
+        buttonPause.setIcon(new ImageIcon("2.png"));
         buttonPlay.setIcon(new ImageIcon("images/Stop.gif"));
-
+        right.setIcon(new ImageIcon("4.png"));
+        left.setIcon(new ImageIcon("3.png"));
+        buttonOpen.setOpaque(false);
+        buttonPlay.setOpaque(false);
+        buttonPause.setOpaque(false);
         panel = new ImagePanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J.jpg", "");
         //panel.setBackground(Color.yellow);
         panel.setOpaque(false);
@@ -105,6 +110,8 @@ public class Frame extends JFrame implements ActionListener, Music {
         //open.setPreferredSize(size1);
         panelsongs.add(open,BorderLayout.EAST);
         panelsongs.add(songs, BorderLayout.CENTER);
+        open.setOpaque(false);
+        songs.setOpaque(false);
 
         impanel.add(panelsongs, BorderLayout.SOUTH);
         JPanel defpanel = new JPanel();
@@ -194,11 +201,14 @@ public class Frame extends JFrame implements ActionListener, Music {
         //playerPanel.add(labelDuration, constraints);
 
         //JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 5));
-        JPanel panelButtons = new JPanel(new BorderLayout());
+         panelButtons = new JPanel(new BorderLayout());
      //   panelButtons.setBackground(new Color(255, 34, 0));
-        panelButtons.add(buttonOpen,BorderLayout.WEST);
-        panelButtons.add(buttonPlay,BorderLayout.CENTER);
-        panelButtons.add(buttonPause,BorderLayout.EAST);
+        panelButtons.add(buttonOpen,BorderLayout.CENTER);
+        panelButtons.add(left,BorderLayout.WEST);
+        panelButtons.add(right, BorderLayout.EAST);
+        buttonOpen.setText("Play");
+        right.setOpaque(false);
+        left.setOpaque(false);
         //panelButtons.setBackground(Color.yellow);
         panelButtons.setOpaque(false);
         playerPanel.add(panelButtons, BorderLayout.SOUTH);
@@ -210,6 +220,8 @@ public class Frame extends JFrame implements ActionListener, Music {
         buttonOpen.addActionListener(this);
         buttonPlay.addActionListener(this);
         buttonPause.addActionListener(this);
+        left.addActionListener(this);
+        right.addActionListener(this);
     }
     public void Actions() {
         open.addActionListener(new ActionListener() {
@@ -233,11 +245,15 @@ public class Frame extends JFrame implements ActionListener, Music {
                             System.out.println(filename);
                         }
                         int i=0;
+                        player1.stop();
                         while (i < items.length){
                             if (filename==songs.getItemAt(i)){
                                 panel = new ImagePanel(items1[i],"");
                                 impanel = new ImPanel(items2[i],"");
                                 repaint();
+                                defoltPanel.add(buttonPause);
+                                panelButtons.add(buttonOpen, BorderLayout.CENTER);
+                                //buttonOpen.doClick();
                             }
                             i++;
                         }
@@ -290,6 +306,43 @@ public class Frame extends JFrame implements ActionListener, Music {
                 } else {
                     resumePlaying();
                 }
+            } else if(button == left){
+                int i = 0;
+                while (i < items.length){
+                    if (filename==songs.getItemAt(i)){
+                        System.out.println(i);
+                        player1.stop();
+                        if(i>=1) {
+                            songs.setSelectedIndex(i - 1);
+                            break;
+                        } else{
+                            System.out.println(items.length - 1);
+                            songs.setSelectedIndex(items.length-1);
+                            break;
+                        }
+                    }
+                    i++;
+                }
+                buttonOpen.doClick();
+
+            } else if (button == right){
+                int i = 0;
+                while (i < items.length){
+                    if (filename==songs.getItemAt(i)){
+                        System.out.println(i);
+                        player1.stop();
+                        if(i<items.length-1) {
+                            songs.setSelectedIndex(i + 1);
+                            break;
+                        } else{
+                            System.out.println(items.length-1);
+                            songs.setSelectedIndex(0);
+                            break;
+                        }
+                    }
+                    i++;
+                }
+                buttonOpen.doClick();
             }
         }
     }
@@ -365,11 +418,14 @@ public class Frame extends JFrame implements ActionListener, Music {
             @Override
             public void run() {
                 try {
+                    panelButtons.add(buttonPause,BorderLayout.CENTER);
+                    defoltPanel.add(buttonOpen);
                     buttonPlay.setText("Stop");
                     buttonPlay.setEnabled(true);
 
                     buttonPause.setText("Pause");
                     buttonPause.setEnabled(true);
+                    //buttonOpen.add(buttonPause);
 
                     player1.load(audioFilePath);
                     timer.setAudioClip(player1.getAudioClip());
@@ -413,6 +469,7 @@ public class Frame extends JFrame implements ActionListener, Music {
     }
     private void pausePlaying() {
         buttonPause.setText("Resume");
+        buttonPause.setIcon(new ImageIcon("1.png"));
         isPause = true;
         player1.pause();
         timer.pauseTimer();
@@ -420,6 +477,7 @@ public class Frame extends JFrame implements ActionListener, Music {
     }
     private void resumePlaying() {
         buttonPause.setText("Pause");
+        buttonPause.setIcon(new ImageIcon("2.png"));
         isPause = false;
         player1.resume();
         timer.resumeTimer();
