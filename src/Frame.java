@@ -39,15 +39,41 @@ public class Frame extends JFrame implements ActionListener, Music {
     private ImagePanel panel;
     private JComboBox songs;
     private JTextPane textArea;
-
+    private ImPanel impanel;
     public Frame() {
         initPlayer();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 400, 450);
         JPanel contentPane = new JPanel(new BorderLayout());
+         impanel = new ImPanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J.jpg", "");
         //contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setBackground(Color.cyan);
+        setContentPane(impanel);
+        impanel.setLayout(new BorderLayout());
+        contentPane.setLayout(new BorderLayout());
+        JPanel defpanel11 = new JPanel();
+        JPanel defpanel111 = new JPanel();
+        defpanel11.setOpaque(false);
+        defpanel111.setOpaque(false);
+
+        defpanel11.setPreferredSize(new Dimension(30, 30));
+        defpanel111.setPreferredSize(new Dimension(30, 30));
+        contentPane.add(defpanel11, BorderLayout.SOUTH);
+        impanel.add(defpanel111, BorderLayout.NORTH);
+
+
+        JPanel defpanel22 = new JPanel();
+        JPanel defpanel222 = new JPanel();
+        defpanel22.setOpaque(false);
+        defpanel222.setOpaque(false);
+
+        defpanel22.setPreferredSize(new Dimension(30, 30));
+        defpanel222.setPreferredSize(new Dimension(30, 30));
+        impanel.add(defpanel22,BorderLayout.EAST);
+        impanel.add(defpanel222,BorderLayout.WEST);
+        //impanel.add(contentPane);
+        //contentPane.setBackground(Color.cyan);
+        impanel.add(contentPane, BorderLayout.CENTER);
+        contentPane.setOpaque(false);
         //contentPane.setOpaque(false);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -61,7 +87,9 @@ public class Frame extends JFrame implements ActionListener, Music {
         panel.setOpaque(false);
         //panel.setBounds(0, 0, 700, 500);
 
-        contentPane.add(panel,BorderLayout.CENTER);
+        contentPane.add(panel, BorderLayout.CENTER);
+        //impanel.setBackground(Color.green);
+        impanel.setOpaque(false);
         //contentPane.setBackground(Color.yellow);
         //panel.setLayout(null);
 
@@ -78,14 +106,14 @@ public class Frame extends JFrame implements ActionListener, Music {
         panelsongs.add(open,BorderLayout.EAST);
         panelsongs.add(songs, BorderLayout.CENTER);
 
-        contentPane.add(panelsongs, BorderLayout.SOUTH);
+        impanel.add(panelsongs, BorderLayout.SOUTH);
         JPanel defpanel = new JPanel();
         JPanel defpanel1 = new JPanel();
         defpanel.setOpaque(false);
         defpanel.setPreferredSize(new Dimension(50, 50));
         defpanel1.setOpaque(false);
-        defpanel1.setPreferredSize(new Dimension(50, 50));
-        contentPane.add(defpanel,BorderLayout.EAST);
+        defpanel1.setPreferredSize(new Dimension(35, 50));
+        //contentPane.add(defpanel,BorderLayout.EAST);
         contentPane.add(defpanel1,BorderLayout.WEST);
         //contentPane.add(panel,BorderLayout.SOUTH);
 
@@ -115,6 +143,7 @@ public class Frame extends JFrame implements ActionListener, Music {
     //255, 108, 0
     public void initPlayer() {
         playerPanel = new JPanel();
+        playerPanel.setOpaque(false);
         playerPanel.setLayout(new BorderLayout());
         //playerPanel.setBackground(Color.red);
         playerPanel.setOpaque(false);
@@ -164,11 +193,12 @@ public class Frame extends JFrame implements ActionListener, Music {
         //constraints.gridx = 2;
         //playerPanel.add(labelDuration, constraints);
 
-        JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 5));
+        //JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 5));
+        JPanel panelButtons = new JPanel(new BorderLayout());
      //   panelButtons.setBackground(new Color(255, 34, 0));
-        panelButtons.add(buttonOpen);
-        panelButtons.add(buttonPlay);
-        panelButtons.add(buttonPause);
+        panelButtons.add(buttonOpen,BorderLayout.WEST);
+        panelButtons.add(buttonPlay,BorderLayout.CENTER);
+        panelButtons.add(buttonPause,BorderLayout.EAST);
         //panelButtons.setBackground(Color.yellow);
         panelButtons.setOpaque(false);
         playerPanel.add(panelButtons, BorderLayout.SOUTH);
@@ -177,7 +207,6 @@ public class Frame extends JFrame implements ActionListener, Music {
         //constraints.gridx = 0;
         //constraints.gridy = 2;
         //playerPanel.add(panelButtons, constraints);
-
         buttonOpen.addActionListener(this);
         buttonPlay.addActionListener(this);
         buttonPause.addActionListener(this);
@@ -207,6 +236,7 @@ public class Frame extends JFrame implements ActionListener, Music {
                         while (i < items.length){
                             if (filename==songs.getItemAt(i)){
                                 panel = new ImagePanel(items1[i],"");
+                                impanel = new ImPanel(items2[i],"");
                                 repaint();
                             }
                             i++;
