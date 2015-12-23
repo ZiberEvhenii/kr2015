@@ -24,7 +24,7 @@ class ImagePanel extends JPanel {
         super.paintComponent(g);
         //int imageWidth = image.getWidth(this);
         //int imageHeight = image.getHeight(this);
-        g.drawImage((new ImageIcon(img).getImage()), 0, 0, 400, 400, null);
+        g.drawImage((new ImageIcon(img).getImage()), 0, 0, 300, 300, null);
     }
 
 }
