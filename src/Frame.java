@@ -9,9 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Frame extends JFrame implements ActionListener, Music {
     private JPanel playerPanel;
@@ -46,8 +44,7 @@ public class Frame extends JFrame implements ActionListener, Music {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 400, 450);
         JPanel contentPane = new JPanel(new BorderLayout());
-         impanel = new ImPanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J.jpg", "");
-        //contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        impanel = new ImPanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J.jpg", "");
         setContentPane(impanel);
         impanel.setLayout(new BorderLayout());
         contentPane.setLayout(new BorderLayout());
@@ -71,14 +68,10 @@ public class Frame extends JFrame implements ActionListener, Music {
         defpanel222.setPreferredSize(new Dimension(30, 30));
         impanel.add(defpanel22, BorderLayout.EAST);
         impanel.add(defpanel222, BorderLayout.WEST);
-        //impanel.add(contentPane);
-        //contentPane.setBackground(Color.cyan);
         impanel.add(contentPane, BorderLayout.CENTER);
         contentPane.setOpaque(false);
-        //contentPane.setOpaque(false);
         setLocationRelativeTo(null);
         setResizable(false);
-        //contentPane.setLayout(null);
         buttonOpen.setIcon(new ImageIcon("1.png"));
         buttonPause.setIcon(new ImageIcon("2.png"));
         buttonPlay.setIcon(new ImageIcon("images/Stop.gif"));
@@ -88,26 +81,15 @@ public class Frame extends JFrame implements ActionListener, Music {
         buttonPlay.setOpaque(false);
         buttonPause.setOpaque(false);
         panel = new ImagePanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J.jpg", "");
-        //panel.setBackground(Color.yellow);
         panel.setOpaque(false);
-        //panel.setBounds(0, 0, 700, 500);
 
         contentPane.add(panel, BorderLayout.CENTER);
-        //impanel.setBackground(Color.green);
         impanel.setOpaque(false);
-        //contentPane.setBackground(Color.yellow);
-        //panel.setLayout(null);
 
         songs = new JComboBox(items);
         filename = String.valueOf(songs.getItemAt(0));
-       // songs.setBounds(231, 112, 250, 20);
-        //open.setBounds(500,112,60,20);
-
         JPanel panelsongs = new JPanel(new BorderLayout());
-        //panelsongs.setBackground(Color.yellow);
         panelsongs.setOpaque(false);
-        //Dimension size1 = new Dimension(70,25);
-        //open.setPreferredSize(size1);
         panelsongs.add(open,BorderLayout.EAST);
         panelsongs.add(songs, BorderLayout.CENTER);
         open.setOpaque(false);
@@ -120,55 +102,24 @@ public class Frame extends JFrame implements ActionListener, Music {
         defpanel.setPreferredSize(new Dimension(50, 50));
         defpanel1.setOpaque(false);
         defpanel1.setPreferredSize(new Dimension(35, 50));
-        //contentPane.add(defpanel,BorderLayout.EAST);
         contentPane.add(defpanel1,BorderLayout.WEST);
-        //contentPane.add(panel,BorderLayout.SOUTH);
-
-        //textArea = new JTextPane();
-
-        //JScrollPane text = new JScrollPane(textArea);
-        //text.setBounds(10, 143, 652, 185);
-        //panel.add(text);
-
-        //JLabel lblNewLabel = new JLabel("Information:");
-        //lblNewLabel.setFont(new Font("Verdana", Font.ITALIC, 29));
-        //lblNewLabel.setBounds(10, 82, 211, 64);
-        //panel.add(lblNewLabel);
-
-        //JLabel Media = new JLabel("MediaPlayer");
-        //Media.setFont(new Font("Verdana", Font.ITALIC, 48));
-        //Media.setBounds(200, 15, 300, 64);
-        //panel.add(Media);
-
-        //playerPanel.setBounds(10, 338, 654, 101);
         contentPane.add(playerPanel,BorderLayout.NORTH);
-        //ImagePanel imagesongs = new ImagePanel("Apple-Music.jpeg.pagespeed.ce.L1OdXzzU7J","");
-        //contentPane.add(imagesongs, BorderLayout.CENTER);
         Actions();
         setVisible(true);
     }
-    //255, 108, 0
+
     public void initPlayer() {
         playerPanel = new JPanel();
         playerPanel.setOpaque(false);
         playerPanel.setLayout(new BorderLayout());
-        //playerPanel.setBackground(Color.red);
         playerPanel.setOpaque(false);
-      //  playerPanel.setBackground(new Color(255, 34, 0));
-        //GridBagConstraints constraints = new GridBagConstraints();
-        //constraints.insets = new Insets(5, 5, 5, 5);
-        //constraints.anchor = GridBagConstraints.WEST;
 
         buttonOpen.setFont(new Font("Sans", Font.BOLD, 14));
-        //buttonOpen.setPreferredSize(new Dimension(25, 25));
         buttonPlay.setFont(new Font("Sans", Font.BOLD, 14));
         buttonPlay.setEnabled(false);
-        //buttonPlay.setPreferredSize(new Dimension(25, 25));
-
 
         buttonPause.setFont(new Font("Sans", Font.BOLD, 14));
         buttonPause.setEnabled(false);
-       // buttonPause.setPreferredSize(new Dimension(25, 25));
 
         labelTimeCounter.setFont(new Font("Sans", Font.BOLD, 12));
         labelDuration.setFont(new Font("Sans", Font.BOLD, 12));
@@ -183,40 +134,16 @@ public class Frame extends JFrame implements ActionListener, Music {
         panelTimer.add(labelDuration,BorderLayout.EAST);
         panelTimer.add(sliderTime, BorderLayout.CENTER);
         panelTimer.add(labelFileName,BorderLayout.SOUTH);
-
-        //constraints.gridx = 0;
-        //constraints.gridy = 0;
-        //constraints.gridwidth = 2;
-        //playerPanel.add(labelFileName, constraints);
-
-        //constraints.anchor = GridBagConstraints.CENTER;
-        //constraints.gridy = 1;
-        //constraints.gridwidth = 1;
-        //playerPanel.add(labelTimeCounter, constraints);
-
-        //constraints.gridx = 1;
-        //playerPanel.add(sliderTime, constraints);
-
-        //constraints.gridx = 2;
-        //playerPanel.add(labelDuration, constraints);
-
-        //JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 5));
-         panelButtons = new JPanel(new BorderLayout());
-     //   panelButtons.setBackground(new Color(255, 34, 0));
+        panelButtons = new JPanel(new BorderLayout());
         panelButtons.add(buttonOpen,BorderLayout.CENTER);
         panelButtons.add(left,BorderLayout.WEST);
         panelButtons.add(right, BorderLayout.EAST);
         buttonOpen.setText("Play");
         right.setOpaque(false);
         left.setOpaque(false);
-        //panelButtons.setBackground(Color.yellow);
         panelButtons.setOpaque(false);
         playerPanel.add(panelButtons, BorderLayout.SOUTH);
         playerPanel.add(panelTimer, BorderLayout.CENTER);
-        //constraints.gridwidth = 3;
-        //constraints.gridx = 0;
-        //constraints.gridy = 2;
-        //playerPanel.add(panelButtons, constraints);
         buttonOpen.addActionListener(this);
         buttonPlay.addActionListener(this);
         buttonPause.addActionListener(this);
@@ -227,7 +154,6 @@ public class Frame extends JFrame implements ActionListener, Music {
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //textArea.setText("");
                 if (isPause) {
                     resumePlaying();
                 }
@@ -267,24 +193,13 @@ public class Frame extends JFrame implements ActionListener, Music {
         if (source instanceof JButton) {
             JButton button = (JButton) source;
             if (button == buttonOpen) {
-                //textArea.setText("");
                 if (isPause) {
                     resumePlaying();
                 }
                 if (isPlaying) {
                     stopPlaying();
                 }
-                String name ="sounds\\"+String.valueOf(songs.getSelectedItem())+".txt";
-                System.out.println(name);
-                File file = new File(name);
-                try {
-                    Scanner scan = new Scanner(new FileReader(file));
-                    while (scan.hasNext())
-                        textArea.setText(textArea.getText() + scan.nextLine() + "\n");
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
-                System.out.println();
+
                 try {
                     openFile();
                 } catch (AWTException e) {
@@ -425,7 +340,6 @@ public class Frame extends JFrame implements ActionListener, Music {
 
                     buttonPause.setText("Pause");
                     buttonPause.setEnabled(true);
-                    //buttonOpen.add(buttonPause);
 
                     player1.load(audioFilePath);
                     timer.setAudioClip(player1.getAudioClip());
