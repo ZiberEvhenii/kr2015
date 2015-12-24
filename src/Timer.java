@@ -16,7 +16,7 @@ public class Timer extends Thread{
     private JLabel labelRecordTime;
     private JSlider slider;
     private Clip audioClip;
-
+    private int currentSecond;
     public void setAudioClip(Clip audioClip) {
         this.audioClip = audioClip;
     }
@@ -35,11 +35,12 @@ public class Timer extends Thread{
             if (!isPause) {
                 if (audioClip != null && audioClip.isRunning()) {
                     labelRecordTime.setText(toTimeString());
-                    int currentSecond = (int) audioClip.getMicrosecondPosition() / 1000000;
+                     currentSecond = (int) audioClip.getMicrosecondPosition() / 1000000;
                     slider.setValue(currentSecond);
                 }
             } else {
                 pauseTime += 100;
+                //pauseTime=currentSecond;
             }
 
 
@@ -58,9 +59,11 @@ public class Timer extends Thread{
     }
     void pauseTimer() {
         isPause = true;
+        System.out.println(toTimeString());
     }
     void resumeTimer() {
         isPause = false;
+        System.out.println(currentSecond);
     }
 
     private String toTimeString() {
