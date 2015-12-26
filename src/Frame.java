@@ -13,27 +13,28 @@ import java.io.IOException;
 
 public class Frame extends JFrame implements ActionListener, Music {
     private JPanel playerPanel;
-    private String filename;
-    private Player player1 = new Player();
+    public  String filename;
+    public  Player player1 = new Player();
     private Thread playbackThread;
     private Timer timer;
 
     private boolean isPlaying = false;
     private boolean isPause = false;
-    private JPanel panelButtons;
-    private String audioFilePath;
-    private JPanel defoltPanel = new JPanel();
+    public JPanel panelButtons;
+    public static String audioFilePath;
+    public JPanel defoltPanel = new JPanel();
     private JLabel labelFileName = new JLabel("Playing File:");
     private JLabel labelTimeCounter = new JLabel("00:00:00");
     private JLabel labelDuration = new JLabel("00:00:00");
-    private String lastOpenPath;
+    public  String lastOpenPath;
 
-    private JButton buttonOpen = new JButton();
+    public static  JButton buttonOpen = new JButton();
     private JButton buttonPlay = new JButton();
-    private JButton buttonPause = new JButton();
+    public JButton buttonPause = new JButton();
     private JButton open = new JButton("Open");
     private JButton left = new JButton();
     private JButton right = new JButton();
+    private JButton openList = new JButton("Play list");
     private JSlider sliderTime = new JSlider();
     private ImagePanel panel;
     private JComboBox songs;
@@ -90,10 +91,13 @@ public class Frame extends JFrame implements ActionListener, Music {
         filename = String.valueOf(songs.getItemAt(0));
         JPanel panelsongs = new JPanel(new BorderLayout());
         panelsongs.setOpaque(false);
+        panelsongs.add(openList, BorderLayout.WEST);
         panelsongs.add(open,BorderLayout.EAST);
         panelsongs.add(songs, BorderLayout.CENTER);
+        openList.setOpaque(false);
         open.setOpaque(false);
         songs.setOpaque(false);
+        openList.addActionListener(this);
 
         impanel.add(panelsongs, BorderLayout.SOUTH);
         JPanel defpanel = new JPanel();
@@ -258,11 +262,14 @@ public class Frame extends JFrame implements ActionListener, Music {
                     i++;
                 }
                 buttonOpen.doClick();
+            } else if (button == openList){
+                new PlayList();
+
             }
         }
     }
 
-    private void openF(){
+    public void openF(){
         JFileChooser fileChooser;
 
         if (lastOpenPath != null && !lastOpenPath.equals("")) {
@@ -309,8 +316,8 @@ public class Frame extends JFrame implements ActionListener, Music {
             }
         }
     }
-    private void openFile() throws AWTException {
-        audioFilePath = "sounds\\"+filename;
+    public  void openFile() throws AWTException {
+        //audioFilePath = "sounds\\"+filename;
         if (isPlaying || isPause) {
             stopPlaying();
             while (player1.getAudioClip().isRunning()) {
