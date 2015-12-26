@@ -15,9 +15,8 @@ public class PlayList extends Frame implements ActionListener, Music{
     JPanel panelList ;
     JList list;
     private int i = 0;
-    Frame f ;
     public PlayList(){
-
+        //panelButtons.add(buttonOpen, BorderLayout.CENTER);
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 400, 450);
         panelList = new JPanel(new BorderLayout(5,5));
@@ -106,10 +105,7 @@ public class PlayList extends Frame implements ActionListener, Music{
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    System.out.println("KEK");
 
-                    //defoltPanel.add(buttonPause);
-                   // panelButtons.add(buttonOpen, BorderLayout.CENTER);
                     buttonOpen.doClick();
 
 
@@ -118,57 +114,16 @@ public class PlayList extends Frame implements ActionListener, Music{
                 }
             }
         });
+        try {
+            audioFilePath = getString(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        buttonOpen.doClick();
     }
 
 
 
-    /*private void OpenF(){
-        JFileChooser fileChooser;
-
-        if (lastOpenPath != null && !lastOpenPath.equals("")) {
-            fileChooser = new JFileChooser(lastOpenPath);
-        } else {
-            fileChooser = new JFileChooser();
-        }
-
-        FileFilter wavFilter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return "Sound file (*.WAV)";
-            }
-
-            @Override
-            public boolean accept(File file) {
-                return file.isDirectory() || file.getName().toLowerCase().endsWith(".wav");
-            }
-        };
-
-
-        fileChooser.setFileFilter(wavFilter);
-        fileChooser.setDialogTitle("Open Audio File");
-        fileChooser.setAcceptAllFileFilterUsed(false);
-
-        int userChoice = fileChooser.showOpenDialog(this);
-        if (userChoice == JFileChooser.APPROVE_OPTION) {
-            audioFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-            lastOpenPath = fileChooser.getSelectedFile().getParent();
-            /*if (isPlaying || isPause) {
-                stopPlaying();
-                while (player1.getAudioClip().isRunning()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-            try {
-                playBack();
-            } catch (AWTException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }*/
 
     public void actionPerformed(ActionEvent e) {
 
@@ -220,4 +175,22 @@ public class PlayList extends Frame implements ActionListener, Music{
         return s;
 
     }
+    public void right() throws  IOException{
+        int in =list.getAnchorSelectionIndex();
+        //System.out.println(list.getLastVisibleIndex());
+        if (in==list.getLastVisibleIndex()){
+            list.setSelectedIndex(0);
+        } else
+        list.setSelectedIndex(in+1);
+
+    }
+    public void left() throws IOException{
+        int in =list.getAnchorSelectionIndex();
+        //System.out.println(list.getLastVisibleIndex());
+        if (in==0){
+            list.setSelectedIndex(list.getLastVisibleIndex());
+        } else
+            list.setSelectedIndex(in-1);
+    }
+
 }
