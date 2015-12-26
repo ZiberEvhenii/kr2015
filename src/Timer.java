@@ -39,8 +39,8 @@ public class Timer extends Thread{
                     slider.setValue(currentSecond);
                 }
             } else {
-                pauseTime += 100;
-                //pauseTime=currentSecond;
+                //pauseTime += 100;
+                pauseTime=currentSecond;
             }
 
 
