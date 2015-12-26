@@ -28,7 +28,9 @@ public class Frame extends JFrame implements ActionListener, Music {
     private JLabel labelDuration = new JLabel("00:00:00");
     public  String lastOpenPath;
 
-    public static  JButton buttonOpen = new JButton();
+    PlayList pl;
+
+    public static JButton buttonOpen = new JButton();
     private JButton buttonPlay = new JButton();
     public JButton buttonPause = new JButton();
     private JButton open = new JButton("Open");
@@ -226,7 +228,7 @@ public class Frame extends JFrame implements ActionListener, Music {
                     resumePlaying();
                 }
             } else if(button == left){
-                int i = 0;
+                /*int i = 0;
                 while (i < items.length){
                     if (filename==songs.getItemAt(i)){
                         System.out.println(i);
@@ -242,10 +244,15 @@ public class Frame extends JFrame implements ActionListener, Music {
                     }
                     i++;
                 }
-                buttonOpen.doClick();
+                buttonOpen.doClick();*/
+                try {
+                    pl.left();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             } else if (button == right){
-                int i = 0;
+                /*int i = 0;
                 while (i < items.length){
                     if (filename==songs.getItemAt(i)){
                         System.out.println(i);
@@ -260,10 +267,18 @@ public class Frame extends JFrame implements ActionListener, Music {
                         }
                     }
                     i++;
+                }*/
+                try {
+
+                     pl.right();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                buttonOpen.doClick();
+
+
             } else if (button == openList){
-                new PlayList();
+
+                pl = new PlayList();
 
             }
         }
@@ -429,4 +444,5 @@ public class Frame extends JFrame implements ActionListener, Music {
         }
         private File changeImage;
     }
+
 }
